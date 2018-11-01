@@ -34,6 +34,15 @@
         $( function() {
             $( "#dtNgay" ).datepicker();
             $( "#dtNgay" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
+            $( "#dtNgay" ).validate({
+                rules: {
+                    field: {
+                        required: true,
+                        date: true,
+                        dateFormat: true
+                    }
+                }
+            });
         } );
     </script>
 </head>
@@ -43,7 +52,7 @@
 <div>
     <div style="width: 200px;float: left">
         <ul>
-            <li><a href="/report1">Báo cáo 1</a></li>
+            <li><a href="/report1" style="color: red">Báo cáo 1</a></li>
             <li><a href="/report2">Báo cáo 2</a></li>
             <li><a href="/report3">Báo cáo 3</a></li>
             <li><a href="/report4">Báo cáo 4</a></li>
@@ -55,7 +64,7 @@
         <form method="post" action="report1/viewReport"  target="_blank">
             <table>
                 <tr>
-                    <td width="200px" style="text-align: right">Cân: </td>
+                    <td width="200px" style="text-align: right">Ca: </td>
                     <td width="200px">
                         <select id="cbbCa" name="cbbCa" style="width: 200px">
                             <option value="1" selected="true">Ca 1</option>
@@ -65,7 +74,7 @@
                     </td>
                     <td width="200px" style="text-align: right">Ngày tháng: </td>
                     <td width="200px">
-                        <input type="text" id="dtNgay" name="dtNgay" data-role="date">
+                        <input type="text" id="dtNgay" readonly="true" name="dtNgay" data-role="date">
                     </td>
                 </tr>
                 <tr>

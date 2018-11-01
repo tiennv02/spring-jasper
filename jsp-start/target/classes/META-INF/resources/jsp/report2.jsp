@@ -48,12 +48,12 @@
 </head>
 <body>
 
-<h2>Báo cáo 1</h2>
+<h2>Báo cáo 2</h2>
 <div>
     <div style="width: 200px;float: left">
         <ul>
-            <li><a href="/report1" style="color: red">Báo cáo 1</a></li>
-            <li><a href="/report2">Báo cáo 2</a></li>
+            <li><a href="/report1">Báo cáo 1</a></li>
+            <li><a href="/report2" style="color: red">Báo cáo 2</a></li>
             <li><a href="/report3">Báo cáo 3</a></li>
             <li><a href="/report4">Báo cáo 4</a></li>
             <li><a href="/report5">Báo cáo 5</a></li>
@@ -61,7 +61,7 @@
         </ul>
     </div>
     <div style="margin-left:10px;float: left">
-        <form method="post" action="report1/viewReport"  target="_blank">
+        <form method="post" action="report2/viewReport"  target="_blank">
             <table>
                 <tr>
                     <td width="200px" style="text-align: right">Ca: </td>

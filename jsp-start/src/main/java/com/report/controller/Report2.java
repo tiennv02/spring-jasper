@@ -1,6 +1,5 @@
 package com.report.controller;
 
-import com.report.dto.ReportDTO;
 import com.report.service.DownloadService;
 import com.report.service.ExporterService;
 import com.report.util.Common;
@@ -9,20 +8,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/report1")
-public class Report1 {
+@RequestMapping("/report2")
+public class Report2 {
     @Autowired
     private DownloadService downloadService;
 
     @RequestMapping(value = "viewReport", method = RequestMethod.POST)
-    public void report(HttpServletResponse response, @RequestParam("cbbCa") String cbbCa, @RequestParam("dtNgay") String dtNgay) {
+    public void report(HttpServletResponse response, @RequestParam("dtNgay") String dtNgay, @RequestParam("cbbCa") String cbbCa) {
         String startDate = "";
         String endDate = "";
         Date ngay = Common.convertToDate(dtNgay, "dd/MM/yyyy");
@@ -43,6 +41,6 @@ public class Report1 {
         params.put("p_startDate", startDate);
         params.put("p_endDate", endDate);
 
-        downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_1, params, response);
+        downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_2, params, response);
     }
 }
