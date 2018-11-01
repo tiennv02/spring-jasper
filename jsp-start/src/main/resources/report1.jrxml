@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2018-11-01T22:36:43 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2e117a79-01c8-4d3a-912a-0728f91be9fa">
+	<property name="ireport.zoom" value="1.464100000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_startDate" class="java.lang.String"/>
+	<parameter name="p_endDate" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.*,
+CASE trim(a.TENCAN)
+  WHEN 'Can So 1' THEN 'THAN ...'
+  WHEN 'Can So 2' THEN 'THAN ...'
+  WHEN 'Can So 3' THEN N'VT LÒ 2'
+  WHEN 'Can So 4' THEN 'THAN ...'
+  WHEN 'Can So 5' THEN 'THAN ...'
+  WHEN 'Can So 6' THEN 'THAN ...'
+  WHEN 'Can So 7' THEN 'THAN ...'
+  WHEN 'Can So 8' THEN 'THAN ...'
+  WHEN 'Can So 9' THEN 'THAN ...'
+  WHEN 'Can So 10' THEN 'THAN ...'
+  WHEN 'Can So 11' THEN ''
+  WHEN 'Can So 12' THEN N'VT LÒ 1'
+  ELSE ''
+END as THAN
+ from (
+SELECT
+      TENCAN,
+	  MAX(GIATRI) MAX_GIATRI,
+	  MIN(GIATRI) MIN_GIATRI,
+	  MAX(GIATRI) - MIN(GIATRI) LECH
+  FROM DBO.DULIEU1 DL
+  WHERE
+  THOIGIAN BETWEEN convert(datetime, $P{p_startDate},121) AND convert(datetime, $P{p_endDate},121)
+  GROUP BY TENCAN
+  ) a]]>
+	</queryString>
+	<field name="TENCAN" class="java.lang.String"/>
+	<field name="MAX_GIATRI" class="java.lang.Float"/>
+	<field name="MIN_GIATRI" class="java.lang.Float"/>
+	<field name="LECH" class="java.lang.Float"/>
+	<field name="THAN" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="187" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="15" uuid="b2927d27-00ba-4528-a27a-aa0584ab4ade"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CÔNG TY THAN DƯƠNG HUY-TKV PHÒNG KCS-TIÊU THỤ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="278" height="15" uuid="f1edf8af-b8ef-4d2e-b827-fde99e2f54ac"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CÔNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="277" height="12" uuid="8910380f-742a-4ba1-ae72-c31cb30d549a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[PHÒNG KCS-TIÊU THỤ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="277" y="15" width="278" height="12" uuid="b17cd551-674e-4ef7-8f51-d637514134b3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="9" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="277" y="32" width="278" height="12" uuid="49395d7b-41cc-458a-9fed-d3f4825df85f"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Cẩm Phả, ngày ... tháng ... năm 2018]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="54" width="555" height="19" uuid="fc0a0b84-5fa9-4be7-a8ec-21fe1bd67046"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="11" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[BIÊN BẢN CHỐT CHỈ SỐ CÂN BẰNG TẢI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="72" width="555" height="12" uuid="d2aa7631-f422-43d7-a866-bec1619d4241"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA["V/v chốt chỉ số cân của các đơn vị có than giao trong ca"
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="101" width="525" height="12" uuid="c7c79dba-c266-4b19-bac4-b0b67bf38bc9"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Thời gian chốt:. giờ ... ngày ... tháng ... năm 2018 tại phòng KCS-Tiêu thụ MB+40]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="113" width="525" height="12" uuid="bb047b35-7067-4269-97e1-b334734cd885"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[I/ Thành phần gồm:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="125" width="525" height="12" uuid="b053926b-d346-4300-a29e-15c8f94d5870"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[1-  Đ/c:.......................................... Phó Phòng KCS-Tiêu thụ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="137" width="525" height="12" uuid="fe3bc544-0cb3-4ccd-b06f-7d600cb5f8d6"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[2-  Đ/c:.......................................... Nhân viên Phòng KCS-Tiêu thụ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="149" width="525" height="12" uuid="9bea59ed-9efb-4613-8848-e43392cd273e"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[3-  Đại diện các phân xưởng T1-T2-T4-T5-T6-T7-T8-T9-T10-VT.LÒ 1-VT.LÒ 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="161" width="45" height="12" uuid="f18d17b9-e84f-4cb1-b3ca-f6c5bf065696"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[II/ Kết quả: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="75" y="161" width="480" height="12" uuid="f7f7824b-5869-4e32-9c0a-52fb3f800468"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Chỉ số cân trong ca ... ngày ... tháng ...	năm 2018]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="53" y="0" width="96" height="20" uuid="b3f150d9-460f-4f65-a30c-7a955b856fb9"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[TÊN CÂN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="149" y="0" width="111" height="20" uuid="9ddad7c8-4c83-4d0b-a1af-fdbad5854d2e"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="53" height="20" uuid="e956fdcd-4c7f-4fac-8532-9ae44a5e5412"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[TT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="260" y="0" width="111" height="20" uuid="01560d9b-01d9-463e-8563-d7f99dcbd3d8"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="371" y="0" width="84" height="20" uuid="9b597cdf-ff70-48e7-9dd7-51dca90f5e7b"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PX KT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="455" y="0" width="100" height="20" uuid="d90ab8ab-7abe-4161-8b93-ea60429c4983"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[KÝ TÊN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="53" y="0" width="96" height="20" uuid="d49d48fb-3391-47bd-bca1-f8dccc614e7f"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TENCAN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="149" y="0" width="111" height="20" uuid="d2c8b7eb-1fa3-4d75-aa55-0364253af574"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MIN_GIATRI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="53" height="20" isPrintWhenDetailOverflows="true" uuid="f2c54b5d-03df-4fea-a017-eccde3c8fb3a"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="371" y="0" width="84" height="20" uuid="c9fd172b-987e-4778-8a00-94459b39d27a"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="260" y="0" width="111" height="20" uuid="4bc8640e-721a-4166-b2ca-d360fafd52ac"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAX_GIATRI}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="455" y="0" width="100" height="20" uuid="744f4d29-05b1-460c-8597-dbcd172afc23"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="1.0" lineStyle="Solid"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isBold="true" isUnderline="false"/>
+				</textElement>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="14" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="99" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="525" height="12" uuid="56672043-5811-4b85-a5b4-e6fe78606f2a"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Serif" size="8" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Các bên cùng nhau thống nhất để làm cơ sở thanh toán cho các phân xưởng]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="16" width="277" height="14" uuid="1a9406dc-78c1-455f-a306-cc814a4ab909"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[N.V PHÒNG KCS-TT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="16" width="277" height="14" uuid="2a9fb4a8-d3aa-47bf-a1b5-8d709fa7a32e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Serif" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PHÓ PHÒNG KCS-TT]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>
