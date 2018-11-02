@@ -33,6 +33,7 @@
     <script>
         $( function() {
             $( "#dtNgay" ).datepicker();
+            $( "#dtNgay" ).datepicker().datepicker('setDate',new Date());;
             $( "#dtNgay" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
             $( "#dtNgay" ).validate({
                 rules: {

@@ -33,14 +33,18 @@ public class Report3 {
             endDate = dtNgay + " 23:30:00.000";
         } else {
             startDate = dtNgay + " 23:30:00.000";
-            dtNgay = Common.convertToString(Common.addDay(ngay, 1), "dd/MM/yyyy");
+            dtNgay = Common.convertToString(Common.addDay(ngay, 1), "yyyy-MM-dd");
             endDate = dtNgay + " 07:30:00.000";
         }
 
         HashMap<String, Object> params = new HashMap<String, Object>();
+        params.put("p_ca", cbbCa);
         params.put("p_startDate", startDate);
         params.put("p_endDate", endDate);
-        params.put("p_Can", cbbCan);
+        params.put("p_can", "Can So " + cbbCan);
+
+        params.put("p_tenCanTV", "CÂN SỐ "+ cbbCan);
+        params.put("p_title", "BÁO CÁO SỐ LIỆU CÂN SỐ " + cbbCan + " CA " + cbbCa + " NGÀY " + Common.convertToString(ngay, "dd.MM.yyyy"));
 
         downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_3, params, response);
     }

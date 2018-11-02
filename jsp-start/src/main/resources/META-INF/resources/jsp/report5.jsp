@@ -49,20 +49,20 @@
 </head>
 <body>
 
-<h2>Báo cáo 3</h2>
+<h2>Báo cáo 5</h2>
 <div>
     <div style="width: 200px;float: left">
         <ul>
             <li><a href="/report1">Báo cáo 1</a></li>
             <li><a href="/report2">Báo cáo 2</a></li>
-            <li><a href="/report3" style="color: red">Báo cáo 3</a></li>
+            <li><a href="/report3">Báo cáo 3</a></li>
             <li><a href="/report4">Báo cáo 4</a></li>
-            <li><a href="/report5">Báo cáo 5</a></li>
+            <li><a href="/report5"  style="color: red">Báo cáo 5</a></li>
             <li><a href="/report6">Báo cáo 6</a></li>
         </ul>
     </div>
     <div style="margin-left:10px;float: left">
-        <form method="post" action="report3/viewReport"  target="_blank">
+        <form method="post" action="report5/viewReport"  target="_blank">
             <table>
                 <tr>
                     <td width="200px" style="text-align: right">Cân số: </td>
@@ -82,21 +82,13 @@
                             <option value="12">Cân số 12</option>
                         </select>
                     </td>
-                    <td width="150px" style="text-align: right">Ca: </td>
-                    <td width="150px">
-                        <select id="cbbCa" name="cbbCa" style="width: 150px">
-                            <option value="1" selected="true">Ca 1</option>
-                            <option value="2">Ca 2</option>
-                            <option value="3">Ca 3</option>
-                        </select>
-                    </td>
                     <td width="150px" style="text-align: right">Ngày tháng: </td>
                     <td width="150px">
                         <input type="text" id="dtNgay" readonly="true" name="dtNgay" data-role="date">
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="6" style="text-align: center;">
+                    <td colspan="4" style="text-align: center;">
                         <input type="submit" value="Xem báo cáo" style="width: 100px; "/>
                     </td>
                 </tr>

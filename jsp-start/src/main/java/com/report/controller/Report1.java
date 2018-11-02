@@ -35,7 +35,7 @@ public class Report1 {
             endDate = dtNgay + " 23:30:00.000";
         } else {
             startDate = dtNgay + " 23:30:00.000";
-            dtNgay = Common.convertToString(Common.addDay(ngay, 1), "dd/MM/yyyy");
+            dtNgay = Common.convertToString(Common.addDay(ngay, 1), "yyyy-MM-dd");
             endDate = dtNgay + " 07:30:00.000";
         }
 
