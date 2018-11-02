@@ -1,191 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<property name="ireport.zoom" value="2.143588810000002"/>
+	<property name="ireport.zoom" value="2.200000000000001"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="160"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="p_startDate" class="java.lang.String"/>
 	<parameter name="p_endDate" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
+	<parameter name="p_can" class="java.lang.String"/>
+	<parameter name="p_ca" class="java.lang.String"/>
+	<parameter name="p_tenCanTV" class="java.lang.String"/>
+	<parameter name="p_title" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select a.*,LEN(trim(a.TENCAN)) LENGTH_TENCAN,
-CASE trim(a.TENCAN)
-  WHEN 'Can So 1' THEN 'THAN ...'
-  WHEN 'Can So 2' THEN 'THAN ...'
-  WHEN 'Can So 3' THEN N'VT LÒ 2'
-  WHEN 'Can So 4' THEN 'THAN ...'
-  WHEN 'Can So 5' THEN 'THAN ...'
-  WHEN 'Can So 6' THEN 'THAN ...'
-  WHEN 'Can So 7' THEN 'THAN ...'
-  WHEN 'Can So 8' THEN 'THAN ...'
-  WHEN 'Can So 9' THEN 'THAN ...'
-  WHEN 'Can So 10' THEN 'THAN ...'
-  WHEN 'Can So 11' THEN ''
-  WHEN 'Can So 12' THEN N'VT LÒ 1'
-  ELSE ''
-END as THAN
- from (
+		<![CDATA[SELECT
+TENCAN,
+CA,
+GIATRI_BD,
+GIATRI_CUOI,
+THOIGIAN_DAU,
+THOIGIAN_KT,
+GIATRI_CUOI - GIATRI_BD as LECH FROM (
 SELECT
       TENCAN,
-	  MAX(GIATRI) MAX_GIATRI,
-	  MIN(GIATRI) MIN_GIATRI,
-	  MAX(GIATRI) - MIN(GIATRI) LECH
+	 $P{p_ca} CA,
+	  GIATRI GIATRI_BD,
+	  (SELECT MIN(GIATRI) FROM DBO.DULIEU1 A WHERE A.GIATRI > DL.GIATRI and  upper(DL.TENCAN) =upper(A.TENCAN)) GIATRI_CUOI,
+	  THOIGIAN THOIGIAN_DAU,
+	  (SELECT MIN(THOIGIAN) FROM DBO.DULIEU1 A WHERE A.THOIGIAN > DL.THOIGIAN  and  upper(DL.TENCAN) =upper(A.TENCAN)) THOIGIAN_KT
   FROM DBO.DULIEU1 DL
-  where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(datetime,$P{p_endDate}, 121)
-  GROUP BY TENCAN
-  ) a order by LEN(trim(a.TENCAN)) ASC, TENCAN  ASC]]>
+ WHERE
+ upper(trim(DL.TENCAN)) =upper(trim($P{p_can}))
+and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(datetime,$P{p_endDate}, 121)
+) DL
+
+ ORDER BY GIATRI_BD asc;
+
+
+
+]]>
 	</queryString>
 	<field name="TENCAN" class="java.lang.String"/>
-	<field name="MAX_GIATRI" class="java.lang.Float"/>
-	<field name="MIN_GIATRI" class="java.lang.Float"/>
+	<field name="CA" class="java.lang.String"/>
+	<field name="GIATRI_BD" class="java.lang.Float"/>
+	<field name="GIATRI_CUOI" class="java.lang.Float"/>
+	<field name="THOIGIAN_DAU" class="java.sql.Timestamp"/>
+	<field name="THOIGIAN_KT" class="java.sql.Timestamp"/>
 	<field name="LECH" class="java.lang.Float"/>
-	<field name="LENGTH_TENCAN" class="java.lang.Integer"/>
-	<field name="THAN" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="206" splitType="Stretch">
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="20"/>
+		<band height="48" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="13" width="555" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
+					<font size="13" isBold="true"/>
 				</textElement>
-				<text><![CDATA[CÔNG TY THAN DƯƠNG HUY-TKV PHÒNG KCS-TIÊU THỤ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="278" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="277" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="true" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[PHÒNG KCS-TIÊU THỤ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="20" width="278" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="44" width="278" height="12"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isItalic="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Cẩm Phả, ngày ... tháng ... năm 2018]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="67" width="555" height="19"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="13" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[BIÊN BẢN CHỐT CHỈ SỐ CÂN BẰNG TẢI]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="86" width="555" height="12"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA["V/v chốt chỉ số cân của các đơn vị có than giao trong ca"
-]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="113" width="525" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Thời gian chốt:. giờ ... ngày ... tháng ... năm 2018 tại phòng KCS-Tiêu thụ MB+40]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="127" width="525" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[I/ Thành phần gồm:]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="42" y="141" width="513" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[1-  Đ/c:.................................................................................. Phó Phòng KCS-Tiêu thụ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="42" y="155" width="513" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[2-  Đ/c:.................................................................................. Nhân viên Phòng KCS-Tiêu thụ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="42" y="170" width="513" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[3-  Đại diện các phân xưởng T1-T2-T4-T5-T6-T7-T8-T9-T10-VT.LÒ 1-VT.LÒ 2]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="184" width="66" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[II/ Kết quả: ]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="96" y="184" width="459" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isBold="false" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Chỉ số cân trong ca ... ngày ... tháng ... năm 2018]]></text>
-			</staticText>
+				<textFieldExpression><![CDATA[$P{p_title}]]></textFieldExpression>
+			</textField>
 		</band>
 	</title>
 	<columnHeader>
-		<band height="20" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="53" y="0" width="96" height="20"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="45" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[TÊN CÂN]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="149" y="0" width="111" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="53" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
@@ -193,13 +77,12 @@ SELECT
 				<text><![CDATA[TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="260" y="0" width="111" height="20"/>
+				<reportElement positionType="FixRelativeToBottom" x="364" y="0" width="66" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
@@ -207,73 +90,149 @@ SELECT
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="371" y="0" width="84" height="20"/>
+				<reportElement positionType="FixRelativeToBottom" x="297" y="0" width="67" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
-				<text><![CDATA[PX KT]]></text>
+				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="455" y="0" width="100" height="20"/>
+				<reportElement positionType="FixRelativeToBottom" x="145" y="0" width="79" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
-				<text><![CDATA[KÝ TÊN]]></text>
+				<text><![CDATA[T.Gian bắt đầu]]></text>
 			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="224" y="0" width="73" height="24"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[T.Gian kết thúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="430" y="0" width="62" height="24"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[KHỐI LƯỢNG(Tấn)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="492" y="0" width="63" height="24"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Ghi chú]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="113" y="0" width="32" height="24"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Ca kíp]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="45" y="0" width="68" height="24"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{p_tenCanTV}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="53" y="0" width="96" height="20"/>
+				<reportElement x="45" y="0" width="68" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
+				<textElement/>
 				<textFieldExpression><![CDATA[$F{TENCAN}]]></textFieldExpression>
 			</textField>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="149" y="0" width="111" height="20"/>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="297" y="0" width="67" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{MIN_GIATRI}]]></textFieldExpression>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{GIATRI_BD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="364" y="0" width="66" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{GIATRI_CUOI}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement x="430" y="0" width="62" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="53" height="20" isPrintWhenDetailOverflows="true"/>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="45" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
@@ -281,71 +240,52 @@ SELECT
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="371" y="0" width="84" height="20"/>
+				<reportElement x="492" y="0" width="63" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
-			</textField>
-			<textField pattern="#,##0;-#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="260" y="0" width="111" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{MAX_GIATRI}]]></textFieldExpression>
+				<textElement/>
+				<textFieldExpression><![CDATA[]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="455" y="0" width="100" height="20"/>
+				<reportElement x="113" y="0" width="32" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
 				</box>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{GIATRI_BD}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="145" y="0" width="79" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{THOIGIAN_DAU}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="224" y="0" width="73" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{THOIGIAN_KT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<summary>
-		<band height="99" splitType="Stretch">
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="15" width="525" height="12"/>
-				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="9" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[Các bên cùng nhau thống nhất để làm cơ sở thanh toán cho các phân xưởng]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="34" width="277" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[N.V PHÒNG KCS-TT]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="278" y="34" width="277" height="14"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
-				</textElement>
-				<text><![CDATA[PHÓ PHÒNG KCS-TT]]></text>
-			</staticText>
-		</band>
+		<band height="31" splitType="Stretch"/>
 	</summary>
 </jasperReport>
