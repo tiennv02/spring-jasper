@@ -473,7 +473,7 @@
     <property name="SearchEverywhereHistoryKey" value="SQLServerDriver&#9;PSI&#9;JAVA://com.microsoft.sqlserver.jdbc.SQLServerDriver&#10;freefonts&#9;PSI&#9;JAVA://sun.font.FreetypeFontScaler&#10;ObjectMapper&#9;PSI&#9;JAVA://org.codehaus.jackson.map.ObjectMapper&#10;com.microsoft.sqlserver.jdbc.SQLServerDriver&#9;PSI&#9;JAVA://com.microsoft.sqlserver.jdbc.SQLServerDriver" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541177538273" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1541177599961" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
