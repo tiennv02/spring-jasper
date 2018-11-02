@@ -21,6 +21,7 @@
         <!-- specify which version of Java to build against-->
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <start-class>com.report.Application</start-class>
     </properties>
     <dependencies>
 
@@ -168,11 +169,11 @@
             <version>1.1.1</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/sqljdbc4 -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>sqljdbc4</artifactId>
-            <version>4.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.microsoft.sqlserver</groupId>-->
+            <!--<artifactId>sqljdbc4</artifactId>-->
+            <!--<version>4.0</version>-->
+        <!--</dependency>-->
 
     </dependencies>
 
@@ -181,6 +182,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>install.sqlserver</id>
+                        <inherited>false</inherited>
+                        <phase>pre-clean</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>com.microsoft.sqlserver</groupId>
+                            <artifactId>sqljdbc4</artifactId>
+                            <version>4.0</version>
+                            <packaging>jar</packaging>
+                            <file>lib-ireport/sqljdbc4-4.0.jar</file>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
