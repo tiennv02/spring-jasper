@@ -30,7 +30,7 @@ SELECT
 	  (SELECT MIN(THOIGIAN) FROM DBO.DULIEU1 A WHERE A.THOIGIAN > DL.THOIGIAN  and  upper(DL.TENCAN) =upper(A.TENCAN)) THOIGIAN_KT
   FROM DBO.DULIEU1 DL
  WHERE
- upper(trim(DL.TENCAN)) =upper(trim($P{p_can}))
+ upper(rtrim(DL.TENCAN)) =upper(rtrim($P{p_can}))
 and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(datetime,$P{p_endDate}, 121)
 ) DL
 where dl.THOIGIAN_KT BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(datetime,$P{p_endDate}, 121)

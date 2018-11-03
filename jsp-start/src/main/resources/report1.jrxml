@@ -9,8 +9,8 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select a.*,LEN(trim(a.TENCAN)) LENGTH_TENCAN,
-CASE trim(a.TENCAN)
+		<![CDATA[select a.*,LEN(rtrim(a.TENCAN)) LENGTH_TENCAN,
+CASE rtrim(a.TENCAN)
   WHEN 'Can So 1' THEN 'THAN ...'
   WHEN 'Can So 2' THEN 'THAN ...'
   WHEN 'Can So 3' THEN N'VT LÒ 2'
@@ -34,7 +34,7 @@ SELECT
   FROM DBO.DULIEU1 DL
   where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(datetime,$P{p_endDate}, 121)
   GROUP BY TENCAN
-  ) a order by LEN(trim(a.TENCAN)) ASC, TENCAN  ASC]]>
+  ) a order by LEN(rtrim(a.TENCAN)) ASC, TENCAN  ASC]]>
 	</queryString>
 	<field name="TENCAN" class="java.lang.String"/>
 	<field name="MAX_GIATRI" class="java.lang.Float"/>

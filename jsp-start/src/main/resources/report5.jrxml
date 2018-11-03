@@ -33,21 +33,21 @@
 	  MAX(GIATRI) - MIN(GIATRI) LECH
   FROM DBO.DULIEU1 DL
   where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate1}, 121) AND CONVERT(datetime,$P{p_endDate1}, 121)
- AND upper(trim(DL.TENCAN)) =upper(trim($P{p_can}))
+ AND upper(rtrim(DL.TENCAN)) =upper(rtrim($P{p_can}))
 GROUP BY TENCAN
 UNION ALL
 SELECT 'Ca 2' CA,
 	  MAX(GIATRI) - MIN(GIATRI) LECH
   FROM DBO.DULIEU1 DL
   where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate12}, 121) AND CONVERT(datetime,$P{p_endDate2}, 121)
-   AND upper(trim(DL.TENCAN)) =upper(trim($P{p_can}))
+   AND upper(rtrim(DL.TENCAN)) =upper(rtrim($P{p_can}))
 GROUP BY TENCAN
   UNION ALL
 SELECT 'Ca 3' CA,
 	  MAX(GIATRI) - MIN(GIATRI) LECH
   FROM DBO.DULIEU1 DL
   where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate3}, 121) AND CONVERT(datetime,$P{p_endDate3}, 121)
-   AND upper(trim(DL.TENCAN)) =upper(trim($P{p_can}))
+   AND upper(rtrim(DL.TENCAN)) =upper(rtrim($P{p_can}))
 GROUP BY TENCAN]]>
 	</queryString>
 	<field name="CA" class="java.lang.String"/>

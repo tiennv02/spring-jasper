@@ -10,10 +10,10 @@ public class SQLServerConnUtils {
     // (Using JDBC Driver: SQLJDBC)
     public static Connection getSQLServerConnection_SQLJDBC() {
         String hostName = "localhost";
-        // String sqlInstanceName = "SQLEXPRESS";
+//         String sqlInstanceName = "SQLEXPRESS";
         String database = "DuLieuCan";
         String userName = "sa";
-        String password = "123";
+        String password = "a@123456";
 
         return getSQLServerConnection_SQLJDBC(hostName,
                 database, userName, password);

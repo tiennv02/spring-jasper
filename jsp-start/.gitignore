@@ -1,0 +1,14 @@
+.idea/
+*.iml
+*.ipr
+
+*.war
+*.iml.*
+*.info
+target/
+*/ws/overlays*
+*/.settings/*
+.project
+.settings
+.classpath
+*/.classpath/*
