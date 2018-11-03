@@ -13,7 +13,8 @@ public class SQLServerConnUtils {
 //         String sqlInstanceName = "SQLEXPRESS";
         String database = "DuLieuCan";
         String userName = "sa";
-        String password = "a@123456";
+        String password = "123";
+//        String password = "a@123456";
 
         return getSQLServerConnection_SQLJDBC(hostName,
                 database, userName, password);
