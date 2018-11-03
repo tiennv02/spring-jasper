@@ -87,11 +87,11 @@
                         <input type="text" id="dtNgay" name="dtNgay" data-role="date">
                     </td>
                 </tr>
-                <%--<tr>--%>
-                    <%--<td colspan="4" style="text-align: right;color: red">--%>
-                       <%--(*) Không chọn Ngày tháng lấy tất cả dữ liệu của cân--%>
-                    <%--</td>--%>
-                <%--</tr>--%>
+                <tr>
+                <td colspan="4" style="text-align: right;color: red">
+                    (*) Để trống Ngày tháng để lấy tất cả dữ liệu của cân được chọn
+                </td>
+                </tr>
                 <tr>
                     <td colspan="4" style="text-align: center;">
                         <input type="submit" value="Xem báo cáo" style="width: 100px; "/>
