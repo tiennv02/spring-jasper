@@ -49,6 +49,6 @@ public class Report2 {
         params.put("p_startDate", startDate);
         params.put("p_endDate", endDate);
 
-        downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_4, params, response);
+        downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_2, params, response);
     }
 }
