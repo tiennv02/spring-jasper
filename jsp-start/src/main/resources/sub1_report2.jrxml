@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub1_report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" >
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub1_report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -76,7 +76,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 	<title>
 		<band height="58" splitType="Stretch">
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="24" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -90,7 +90,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA["CA "+$P{p_ca}+" TỪ " + (Integer.parseInt($P{p_ca})*8+$P{p_gio}-1>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-25):(Integer.parseInt($P{p_ca})*8+$P{p_gio}-1)).toString()+"H30 - " +(Integer.parseInt($P{p_ca})*8+$P{p_gio}>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-24):(Integer.parseInt($P{p_ca})*8+$P{p_gio})).toString()+"H30 "+" Ngày "+$P{p_Date}.substring(8,10)+" Tháng "+$P{p_Date}.substring(5,7)]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="19" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -101,7 +101,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -115,7 +115,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[TÊN CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -129,7 +129,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -143,7 +143,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -157,7 +157,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -171,7 +171,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[TÊN PX]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -185,7 +185,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[KHỐI LƯỢNG THAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -199,7 +199,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -213,7 +213,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<text><![CDATA[L. KÊ KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -231,7 +231,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -245,7 +245,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -259,7 +259,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" />
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -273,7 +273,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[$F{STT}.equals("3")?"12":$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -287,7 +287,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -301,7 +301,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -314,7 +314,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				</textElement>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -328,7 +328,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -342,7 +342,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -359,7 +359,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 	<summary>
 		<band height="20">
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -373,7 +373,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA["CÂN TỔNG"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -386,7 +386,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -399,7 +399,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				</textElement>
 			</textField>
 			<textField evaluationTime="Report" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -412,7 +412,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -425,7 +425,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				</textElement>
 			</textField>
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -439,7 +439,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ 12"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" />
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -453,7 +453,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<textFieldExpression><![CDATA[13]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -466,7 +466,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				</textElement>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>

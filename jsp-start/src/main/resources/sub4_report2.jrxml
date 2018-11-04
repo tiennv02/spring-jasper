@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub1_report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub1_report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -7,32 +7,50 @@
 	<parameter name="p_endDate" class="java.lang.String"/>
 	<parameter name="p_ca" class="java.lang.String"/>
 	<parameter name="p_Date" class="java.lang.String"/>
+	<parameter name="p_gio" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[select a.*,
-CASE a.TENCAN
-  WHEN 'Can So 1' THEN 'THAN 1'
-  WHEN 'Can So 2' THEN 'THAN 2'
-  WHEN 'Can So 3' THEN 'THAN 3'
-  WHEN 'Can So 4' THEN 'THAN 4'
-  WHEN 'Can So 5' THEN 'THAN 5'
-  WHEN 'Can So 6' THEN 'THAN 6'
-  WHEN 'Can So 7' THEN 'THAN 7'
-  WHEN 'Can So 8' THEN 'THAN 8'
-  WHEN 'Can So 9' THEN 'THAN 9'
-  WHEN 'Can So 10' THEN 'THAN 10'
-  WHEN 'Can So 11' THEN N'ĐƠN VỊ ĐÀO LÒ'
-  WHEN 'Can So 12' THEN 'KHO +38'
+substring(a.TENCAN,7,9) STT,
+CASE substring(a.TENCAN,7,9)
+  WHEN '1' THEN 'THAN 1'
+  WHEN '2' THEN 'THAN 2'
+  WHEN '3' THEN 'Q.LẬT -100'
+  WHEN '4' THEN 'THAN 4'
+  WHEN '5' THEN 'THAN 5'
+  WHEN '6' THEN 'THAN 6'
+  WHEN '7' THEN 'THAN 7'
+  WHEN '8' THEN 'THAN 8'
+  WHEN '9' THEN 'THAN 9'
+  WHEN '10' THEN 'THAN 10'
+  WHEN '11' THEN 'CG+XLM'
+  WHEN '12' THEN ''
+  ELSE ''
+END as THAN,
+CASE substring(a.TENCAN,7,9)
+  WHEN '1' THEN 'THAN 1'
+  WHEN '2' THEN 'THAN 2'
+  WHEN '3' THEN 'Q.LẬT -100'
+  WHEN '4' THEN 'THAN 4'
+  WHEN '5' THEN 'THAN 5'
+  WHEN '6' THEN 'THAN 6'
+  WHEN '7' THEN 'THAN 7'
+  WHEN '8' THEN 'THAN 8'
+  WHEN '9' THEN 'THAN 9'
+  WHEN '10' THEN 'THAN 10'
+  WHEN '11' THEN 'CG+XLM'
+  WHEN '12' THEN ''
   ELSE ''
 END as THAN
  from (
 SELECT
-      TENCAN,
+      	  TENCAN,
 	  MAX(GIATRI) MAX_GIATRI,
 	  MIN(GIATRI) MIN_GIATRI,
-	  MAX(GIATRI) - MIN(GIATRI) LECH
+	  (case when MAX(GIATRI) = 0 then 0 else MAX(GIATRI) - MIN(GIATRI) end) as LECH
   FROM
   DBO.DULIEU1 d
-  WHERE thoigian BETWEEN convert(datetime, $P{p_Date},121 )AND convert(datetime, $P{p_endDate},121)
+  WHERE thoigian BETWEEN convert(datetime, $P{p_Date},121 ) AND convert(datetime, $P{p_endDate},121)
+	--and TENCAN != 'Can So 12'
   GROUP BY TENCAN
   ) a
 ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
@@ -41,14 +59,24 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 	<field name="MAX_GIATRI" class="java.lang.Float"/>
 	<field name="MIN_GIATRI" class="java.lang.Float"/>
 	<field name="LECH" class="java.lang.Float"/>
+	<field name="STT" class="java.lang.String"/>
 	<field name="THAN" class="java.lang.String"/>
+	<variable name="p_startTime" class="java.lang.String">
+		<variableExpression><![CDATA[(Integer.parseInt($P{p_ca})*8-1)<10?(" 0"+(Integer.parseInt($P{p_ca})*8-1).toString()+":30:00.000"):(" "+(Integer.parseInt($P{p_ca})*8-1).toString()+":30:00.000")]]></variableExpression>
+	</variable>
+	<variable name="p_endTime" class="java.lang.String">
+		<variableExpression><![CDATA[(Integer.parseInt($P{p_ca})*8)<10?(" 0"+(Integer.parseInt($P{p_ca})*8).toString()+":30:00.000"):(" "+(Integer.parseInt($P{p_ca})*8-1).toString()+":30:00.000")]]></variableExpression>
+	</variable>
+	<variable name="sum_lech" class="java.lang.Float" calculation="Sum">
+		<variableExpression><![CDATA[$F{LECH}]]></variableExpression>
+	</variable>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="58" splitType="Stretch">
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="39" width="555" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -57,40 +85,12 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["CA "+$P{p_ca}+" TỪ " + (Integer.parseInt($P{p_ca})*8+2).toString()+"H - " +(Integer.parseInt($P{p_ca})*8+3).toString()+"H  "+" Ngày "+$P{p_Date}.substring(8,10)+" Tháng "+$P{p_Date}.substring(5,7)]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" mode="Opaque" x="30" y="0" width="525" height="20" backcolor="#999999"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="0.0" lineStyle="Solid"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["CA "+$P{p_ca}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="0.0" lineStyle="Solid"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{p_ca}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CA "+$P{p_ca}+" TỪ " + (Integer.parseInt($P{p_ca})*8+$P{p_gio}-1>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-25):(Integer.parseInt($P{p_ca})*8+$P{p_gio}-1)).toString()+"H30 - " +(Integer.parseInt($P{p_ca})*8+$P{p_gio}>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-24):(Integer.parseInt($P{p_ca})*8+$P{p_gio})).toString()+"H30 "+" Ngày "+$P{p_Date}.substring(8,10)+" Tháng "+$P{p_Date}.substring(5,7)]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="20" width="555" height="19"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -104,13 +104,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TÊN CÂN]]></text>
 			</staticText>
@@ -118,13 +118,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
@@ -132,13 +132,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TT]]></text>
 			</staticText>
@@ -146,13 +146,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
@@ -160,13 +160,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TÊN PX]]></text>
 			</staticText>
@@ -174,13 +174,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[KHỐI LƯỢNG THAN]]></text>
 			</staticText>
@@ -188,13 +188,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
@@ -202,13 +202,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[L. KÊ KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
@@ -216,13 +216,13 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[KHỐI LƯỢNG LŨY KẾ]]></text>
 			</staticText>
@@ -234,27 +234,27 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{TENCAN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
@@ -262,100 +262,223 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{STT}.equals("3")?"12":$F{STT}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0">
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MAX_GIATRI}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0">
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="20">
 			<textField>
 				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["CÂN TỔNG"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+			</textField>
+			<textField>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CÂN SỐ 12"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<pen lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[13]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
-			</textField>
-			<textField>
+			<textField pattern="#,##0" isBlankWhenNull="true">
 				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
+					<topPen lineWidth="0.5" lineStyle="Solid"/>
+					<leftPen lineWidth="0.5" lineStyle="Solid"/>
+					<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA["0"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<pen lineStyle="Solid"/>
-					<topPen lineWidth="1.0" lineStyle="Solid"/>
-					<leftPen lineWidth="1.0" lineStyle="Solid"/>
-					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
-					<rightPen lineWidth="1.0" lineStyle="Solid"/>
-				</box>
-				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
-				</textElement>
-				<textFieldExpression><![CDATA["0"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{sum_lech}]]></textFieldExpression>
 			</textField>
 		</band>
-	</detail>
+	</summary>
 </jasperReport>

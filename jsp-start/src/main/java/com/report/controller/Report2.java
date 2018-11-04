@@ -24,8 +24,8 @@ public class Report2 {
     public void report(HttpServletResponse response, @RequestParam("dtNgay") String dtNgay, @RequestParam("cbbCa") String cbbCa) {
         String startDate = "";
         String endDate = "";
-        //String path = "\\";//debug
-        String path = "/";//run file jar
+        String path = "\\";//debug
+//        String path = "/";//run file jar
         System.out.println("path = \\ khi debug");
         System.out.println("path = / khi run file jar");
         Date ngay = Common.convertToDate(dtNgay, "dd/MM/yyyy");
@@ -43,7 +43,6 @@ public class Report2 {
         }
 
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("SUBREPORT_DIR", path);
         params.put("p_ca", cbbCa);
         params.put("p_Date", dtNgay);
         params.put("p_startDate", startDate);
