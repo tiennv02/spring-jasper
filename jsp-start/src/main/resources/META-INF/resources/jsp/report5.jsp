@@ -30,20 +30,15 @@
     <link href="jsp/jquery-ui.css" rel="stylesheet">
     <script src="jsp/external/jquery/jquery.js"></script>
     <script src="jsp/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jsp/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="jsp/bootstrap/bootstrap.css">
+    <script src="jsp/bootstrap/bootstrap.min.js"></script>
+    <script src="jsp/bootstrap/bootstrap.js"></script>
     <script>
         $( function() {
             $( "#dtNgay" ).datepicker();
-            $( "#dtNgay" ).datepicker().datepicker('setDate',new Date());;
+            $( "#dtNgay" ).datepicker().datepicker('setDate',new Date());
             $( "#dtNgay" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
-            $( "#dtNgay" ).validate({
-                rules: {
-                    field: {
-                        required: true,
-                        date: true,
-                        dateFormat: true
-                    }
-                }
-            });
         } );
     </script>
 </head>
@@ -52,7 +47,7 @@
 <h2>Báo cáo 5</h2>
 <div>
     <div style="width: 200px;float: left">
-        <ul>
+        <ul style="margin: 0 0 10px 0px;">
             <li><a href="/report1">Báo cáo 1</a></li>
             <li><a href="/report2">Báo cáo 2</a></li>
             <li><a href="/report3">Báo cáo 3</a></li>
@@ -65,9 +60,9 @@
         <form method="post" action="report5/viewReport"  target="_blank">
             <table>
                 <tr>
-                    <td width="200px" style="text-align: right">Cân số: </td>
+                    <td width="200px" style="text-align: right"><label>Cân số: </label></td>
                     <td width="200px">
-                        <select id="cbbCan" name="cbbCan" style="width: 150px">
+                        <select id="cbbCan" name="cbbCan" style="width: 150px" class="form-control">
                             <option value="1" selected="true">Cân số 1</option>
                             <option value="2">Cân số 2</option>
                             <option value="3">Cân số 3</option>
@@ -82,14 +77,15 @@
                             <option value="12">Cân số 12</option>
                         </select>
                     </td>
-                    <td width="150px" style="text-align: right">Ngày tháng: </td>
+                    <td width="150px" style="text-align: right"><label>Ngày tháng:</label></td>
                     <td width="150px">
-                        <input type="text" id="dtNgay" readonly="true" name="dtNgay" data-role="date">
+                        <input type="text" id="dtNgay" readonly="true" name="dtNgay" data-role="date" style="height: 34px;"
+                               class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: center;">
-                        <input type="submit" value="Xem báo cáo" style="width: 100px; "/>
+                        <input type="submit" value="Xem báo cáo" style="width: 100px; " class="btn btn-default"/>
                     </td>
                 </tr>
             </table>

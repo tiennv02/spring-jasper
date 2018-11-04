@@ -10,24 +10,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.util.Date;
 import java.util.HashMap;
 
 @Controller
-@RequestMapping("/report2")
-public class Report2 {
+@RequestMapping("/report4")
+public class Report4 {
     @Autowired
     private DownloadService downloadService;
 
     @RequestMapping(value = "viewReport", method = RequestMethod.POST)
-    public void report(HttpServletResponse response, @RequestParam("dtNgay") String dtNgay, @RequestParam("cbbCa") String cbbCa) {
+    public void report(HttpServletResponse response, @RequestParam("cbbCa") String cbbCa, @RequestParam("dtNgay") String dtNgay) {
         String startDate = "";
         String endDate = "";
-        //String path = "\\";//debug
-        String path = "/";//run file jar
-        System.out.println("path = \\ khi debug");
-        System.out.println("path = / khi run file jar");
         Date ngay = Common.convertToDate(dtNgay, "dd/MM/yyyy");
         dtNgay = Common.convertToString(ngay, "yyyy-MM-dd");
         if (cbbCa.equals("1")) {
@@ -43,12 +38,9 @@ public class Report2 {
         }
 
         HashMap<String, Object> params = new HashMap<String, Object>();
-        params.put("SUBREPORT_DIR", path);
-        params.put("p_ca", cbbCa);
-        params.put("p_Date", dtNgay);
         params.put("p_startDate", startDate);
         params.put("p_endDate", endDate);
 
-        downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_4, params, response);
+        downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_1, params, response);
     }
 }

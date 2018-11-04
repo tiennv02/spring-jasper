@@ -30,29 +30,24 @@
     <link href="jsp/jquery-ui.css" rel="stylesheet">
     <script src="jsp/external/jquery/jquery.js"></script>
     <script src="jsp/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jsp/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="jsp/bootstrap/bootstrap.css">
+    <script src="jsp/bootstrap/bootstrap.min.js"></script>
+    <script src="jsp/bootstrap/bootstrap.js"></script>
     <script>
         $( function() {
             $( "#dtNgay" ).datepicker();
-            $( "#dtNgay" ).datepicker().datepicker('setDate',new Date());;
+            $( "#dtNgay" ).datepicker().datepicker('setDate',new Date());
             $( "#dtNgay" ).datepicker( "option", "dateFormat", "dd/mm/yy" );
-            $( "#dtNgay" ).validate({
-                rules: {
-                    field: {
-                        required: true,
-                        date: true,
-                        dateFormat: true
-                    }
-                }
-            });
         } );
     </script>
 </head>
 <body>
 
-<h2>Báo cáo 2</h2>
+<h2>Báo cáo 4</h2>
 <div>
     <div style="width: 200px;float: left">
-        <ul>
+        <ul style="margin: 0 0 10px 0px;">
             <li><a href="/report1">Báo cáo 1</a></li>
             <li><a href="/report2">Báo cáo 2</a></li>
             <li><a href="/report3">Báo cáo 3</a></li>
@@ -62,10 +57,10 @@
         </ul>
     </div>
     <div style="margin-left:10px;float: left">
-        <form method="post" action="report2/viewReport"  target="_blank">
+        <form method="post" action="report4/viewReport"  target="_blank">
             <table>
                 <tr>
-                    <td width="200px" style="text-align: right">Ca: </td>
+                    <td width="200px" style="text-align: right"><label>Ca:</label></td>
                     <td width="200px">
                         <select id="cbbCa" name="cbbCa" style="width: 200px">
                             <option value="1" selected="true">Ca 1</option>
@@ -73,14 +68,15 @@
                             <option value="3">Ca 3</option>
                         </select>
                     </td>
-                    <td width="200px" style="text-align: right">Ngày tháng: </td>
+                    <td width="200px" style="text-align: right"><label>Ngày tháng:</label> </td>
                     <td width="200px">
-                        <input type="text" id="dtNgay" readonly="true" name="dtNgay" data-role="date">
+                        <input type="text" id="dtNgay" readonly="true" name="dtNgay" data-role="date"  style="height: 34px;"
+                               class="form-control">
                     </td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: center;">
-                        <input type="submit" value="Xem báo cáo" style="width: 100px; "/>
+                        <input type="submit" value="Xem báo cáo" style="width: 100px; " class="btn btn-default"/>
                     </td>
                 </tr>
             </table>
