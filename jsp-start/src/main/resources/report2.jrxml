@@ -22,28 +22,28 @@
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="20" y="0" width="277" height="15" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="10" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CÔNG TY THAN DƯƠNG HUY-TKV PHÒNG KCS-TIÊU THỤ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="297" y="0" width="278" height="15" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="10" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CÔNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="20" y="15" width="277" height="12" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="9" isBold="true" isUnderline="true"/>
+					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PHÒNG KCS-TIÊU THỤ]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="297" y="15" width="278" height="12" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="9" isBold="true" isUnderline="true"/>
+					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
 			</staticText>
@@ -57,7 +57,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CA "+$P{p_ca}]]></textFieldExpression>
 			</textField>

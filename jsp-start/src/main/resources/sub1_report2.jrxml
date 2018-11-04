@@ -85,14 +85,14 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.0" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CA "+$P{p_ca}+" TỪ " + (Integer.parseInt($P{p_ca})*8+$P{p_gio}-1>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-25):(Integer.parseInt($P{p_ca})*8+$P{p_gio}-1)).toString()+"H30 - " +(Integer.parseInt($P{p_ca})*8+$P{p_gio}>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-24):(Integer.parseInt($P{p_ca})*8+$P{p_gio})).toString()+"H30 "+" Ngày "+$P{p_Date}.substring(8,10)+" Tháng "+$P{p_Date}.substring(5,7)]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="19" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CẬP NHẬT KHỐI LƯỢNG CÁC PHÂN XƯỞNG]]></text>
 			</staticText>
@@ -110,7 +110,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TÊN CÂN]]></text>
 			</staticText>
@@ -124,7 +124,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
@@ -138,7 +138,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TT]]></text>
 			</staticText>
@@ -152,7 +152,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
@@ -166,7 +166,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[TÊN PX]]></text>
 			</staticText>
@@ -180,7 +180,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[KHỐI LƯỢNG THAN]]></text>
 			</staticText>
@@ -194,7 +194,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
@@ -208,7 +208,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[L. KÊ KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
@@ -222,7 +222,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[KHỐI LƯỢNG LŨY KẾ]]></text>
 			</staticText>
@@ -240,7 +240,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
@@ -254,7 +254,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
@@ -268,7 +268,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{STT}.equals("3")?"12":$F{STT}]]></textFieldExpression>
 			</textField>
@@ -282,7 +282,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
@@ -296,7 +296,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
@@ -310,7 +310,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 			<textField pattern="#,##0">
@@ -323,7 +323,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
 			</textField>
@@ -337,7 +337,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LECH}]]></textFieldExpression>
 			</textField>
@@ -351,7 +351,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 		</band>
@@ -368,7 +368,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="true" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CÂN TỔNG"]]></textFieldExpression>
 			</textField>
@@ -382,7 +382,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
@@ -395,7 +395,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 			<textField evaluationTime="Report" isBlankWhenNull="true">
@@ -408,7 +408,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 			<textField isBlankWhenNull="true">
@@ -421,7 +421,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 			<textField>
@@ -434,7 +434,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["CÂN SỐ 12"]]></textFieldExpression>
 			</textField>
@@ -448,7 +448,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[13]]></textFieldExpression>
 			</textField>
@@ -462,7 +462,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
@@ -475,7 +475,7 @@ ORDER BY CAST(substring(a.TENCAN,7,9) as int)]]>
 					<rightPen lineWidth="0.5" lineStyle="Solid"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="8" isBold="false" isUnderline="false"/>
+					<font fontName="DejaVu Sans" size="8" isBold="false" isUnderline="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{sum_lech}]]></textFieldExpression>
 			</textField>
