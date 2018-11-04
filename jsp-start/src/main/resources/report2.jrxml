@@ -6,7 +6,7 @@
 	<parameter name="p_startDate" class="java.lang.String"/>
 	<parameter name="p_endDate" class="java.lang.String"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
-		<defaultValueExpression><![CDATA["C:\\Users\\tuyen\\Desktop\\report\\"]]></defaultValueExpression>
+		<defaultValueExpression><![CDATA["META-INF\\resources\\report\\"]]></defaultValueExpression>
 	</parameter>
 	<parameter name="p_ca" class="java.lang.String"/>
 	<parameter name="p_Date" class="java.lang.String"/>
