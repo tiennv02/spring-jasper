@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.143588810000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="1"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="p_startDate1" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -90,7 +90,7 @@ GROUP BY TENCAN]]>
 				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="47" width="555" height="19"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="47" width="555" height="26"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="13" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
@@ -104,7 +104,7 @@ GROUP BY TENCAN]]>
 				<text><![CDATA[Đơn vị tính: Tấn]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="0" y="66" width="555" height="15"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="73" width="555" height="15"/>
 				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
@@ -155,7 +155,7 @@ GROUP BY TENCAN]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
-				<text><![CDATA[KHỐI LƯỢNG QUÁ CÂN]]></text>
+				<text><![CDATA[KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="384" y="0" width="171" height="20"/>

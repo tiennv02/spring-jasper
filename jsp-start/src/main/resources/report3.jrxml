@@ -61,9 +61,9 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 		</band>
 	</title>
 	<columnHeader>
-		<band height="24" splitType="Stretch">
+		<band height="36" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="34" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="34" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -76,7 +76,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[STT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="386" y="0" width="65" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="386" y="0" width="65" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -89,7 +89,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="320" y="0" width="66" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="320" y="0" width="66" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -102,7 +102,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="134" y="0" width="93" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="134" y="0" width="93" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -115,7 +115,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[T.Gian bắt đầu]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="227" y="0" width="93" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="227" y="0" width="93" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -128,7 +128,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[T.Gian kết thúc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="49" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="49" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -141,7 +141,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[KHỐI LƯỢNG(Tấn)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="500" y="0" width="55" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="500" y="0" width="55" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -154,7 +154,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[Ghi chú]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="102" y="0" width="32" height="24"/>
+				<reportElement positionType="FixRelativeToBottom" x="102" y="0" width="32" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -167,7 +167,7 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				<text><![CDATA[Ca kíp]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="34" y="0" width="68" height="24"/>
+				<reportElement x="34" y="0" width="68" height="36"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -304,18 +304,6 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 	</detail>
 	<columnFooter>
 		<band height="20">
-			<textField isBlankWhenNull="true">
-				<reportElement x="34" y="0" width="68" height="20"/>
-				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="8" isBold="true"/>
-				</textElement>
-			</textField>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="34" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -420,6 +408,19 @@ and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(date
 				</textElement>
 				<textFieldExpression><![CDATA[$V{V_Gia_Tri}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="34" y="0" width="68" height="20"/>
+				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Tổng]]></text>
+			</staticText>
 		</band>
 	</columnFooter>
 	<summary>

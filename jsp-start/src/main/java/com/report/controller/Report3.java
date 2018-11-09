@@ -44,7 +44,7 @@ public class Report3 {
         params.put("p_can", "Can So " + cbbCan);
 
         params.put("p_tenCanTV", "CÂN SỐ "+ cbbCan);
-        params.put("p_title", "BÁO CÁO SỐ LIỆU CÂN SỐ " + cbbCan + " CA " + cbbCa + " NGÀY " + Common.convertToString(ngay, "dd.MM.yyyy"));
+        params.put("p_title", "BÁO CÁO DỮ LIỆU CÂN SỐ " + cbbCan + " CA " + cbbCa + " NGÀY " + Common.convertToString(ngay, "dd.MM.yyyy"));
 
         downloadService.download(ExporterService.EXTENSION_TYPE_PDF, ExporterService.TEMPLATE_3, params, response);
     }

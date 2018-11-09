@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="2.143588810000002"/>
-	<property name="ireport.x" value="0"/>
+	<property name="ireport.x" value="273"/>
 	<property name="ireport.y" value="27"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="p_startDate" class="java.lang.String">
@@ -54,7 +54,7 @@ SELECT
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="89" splitType="Stretch">
+		<band height="100" splitType="Stretch">
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -84,14 +84,14 @@ SELECT
 				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="47" width="555" height="19"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="49" width="555" height="31"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="13" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[THỐNG KÊ CHI TIẾT QUA CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="73" width="384" height="12"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="80" width="384" height="12"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
@@ -127,7 +127,7 @@ SELECT
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="8" isBold="true" isUnderline="false" pdfEncoding="&lt;Default&gt;" isPdfEmbedded="false"/>
 				</textElement>
-				<text><![CDATA[KHỐI LƯỢNG QUÁ CÂN]]></text>
+				<text><![CDATA[KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
 			<staticText>
 				<reportElement positionType="FixRelativeToBottom" x="420" y="0" width="135" height="20"/>
