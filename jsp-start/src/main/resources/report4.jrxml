@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c78fec56-2b33-484a-886e-6a1ee68b0431">
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2018-11-12T01:43:44 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -57,42 +59,42 @@ ORDER BY CAST(STT as int)]]>
 	<title>
 		<band height="102" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="15" uuid="505828b0-7cfe-4d0d-8d66-d436430fe3bf"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="15" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CÔNG TY THAN DƯƠNG HUY-TKV PHÒNG KCS-TIÊU THỤ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="278" height="15" uuid="69110ec1-dd10-4bea-ad6f-942987227125"/>
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="278" height="15" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CÔNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="277" height="12" uuid="6734cfa1-67be-4961-bf0b-b9aa08cfa818"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="277" height="12" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PHÒNG KCS-TIÊU THỤ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="15" width="278" height="12" uuid="f1a6cf14-e4b7-46eb-9110-30e34f5e4613"/>
+				<reportElement positionType="FixRelativeToBottom" x="277" y="15" width="278" height="12" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="43" width="555" height="19" uuid="9ba64a9e-a96b-490a-963d-49dae05571eb"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="43" width="555" height="19" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[BÁO CÁO KHỐI LƯỢNG CÁC PHÂN XƯỞNG]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="62" width="555" height="20" uuid="7946c7d2-158a-4c8a-820f-640089d84c39"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="62" width="555" height="20" />
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -110,7 +112,7 @@ ORDER BY CAST(STT as int)]]>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="37" uuid="22251890-d1ed-414b-9587-5c75461efe2d"/>
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -124,7 +126,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TÊN CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="126" y="0" width="74" height="37" uuid="0137ca67-df68-4b6c-9654-0bbe28dc06f3"/>
+				<reportElement positionType="FixRelativeToBottom" x="126" y="0" width="74" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -138,7 +140,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37" uuid="960bc6a2-d0d6-4f3c-bfa9-a1052831d89a"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -152,7 +154,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="37" uuid="163f1fea-12d4-45df-87e4-201f5de3e2f3"/>
+				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -166,7 +168,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="37" uuid="a832008e-dddc-4c2c-90cf-d854773c0c2c"/>
+				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -180,7 +182,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TÊN PX]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="37" uuid="23a17e31-de13-4cce-b254-cef172285a7d"/>
+				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -194,7 +196,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[KHỐI LƯỢNG THAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="37" uuid="421c650b-cc14-4ddf-b17e-489c2f520824"/>
+				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="37" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -212,8 +214,8 @@ ORDER BY CAST(STT as int)]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="20" uuid="43fc2c90-d428-432d-b88a-fbf9019fe1ab"/>
-				<box topPadding="1" leftPadding="3" bottomPadding="1">
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="20" />
+				<box topPadding="1" leftPadding="5" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -226,8 +228,8 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="126" y="0" width="74" height="20" uuid="8304e9a2-2621-4b2e-9013-214c055f8546"/>
-				<box topPadding="1" bottomPadding="1" rightPadding="3">
+				<reportElement positionType="FixRelativeToBottom" x="127" y="0" width="72" height="20" />
+				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -240,7 +242,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" uuid="ce6a7721-e947-4c2d-b86b-7f5922563736"/>
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" />
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -254,8 +256,8 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="20" uuid="3f7c0b07-8716-4403-8207-2f07e3e6f54b"/>
-				<box topPadding="1" leftPadding="3" bottomPadding="1">
+				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="20" />
+				<box topPadding="1" leftPadding="5" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -268,8 +270,8 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="20" uuid="434dfe13-adcc-4aba-a96d-e64897b76bad"/>
-				<box topPadding="1" bottomPadding="1" rightPadding="3">
+				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="20" />
+				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -282,8 +284,8 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MAX_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="20" uuid="a6f24453-f4e7-43de-a260-b6029f971184"/>
-				<box topPadding="1" bottomPadding="1" rightPadding="3">
+				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="20" />
+				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -296,8 +298,8 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{LECH}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="20" uuid="c620ae4e-e49d-470d-92ec-4ecafde2a302"/>
-				<box topPadding="1" bottomPadding="1" rightPadding="3">
+				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="20" />
+				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
 					<leftPen lineWidth="0.5" lineStyle="Solid"/>
@@ -314,14 +316,14 @@ ORDER BY CAST(STT as int)]]>
 	<summary>
 		<band height="99" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="277" height="14" uuid="c93f5ae8-ad88-42c0-8721-00caedd37041"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="277" height="14" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[N.V PHÒNG KCS-TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="278" y="14" width="277" height="14" uuid="33a841bc-5e73-49b5-94e2-d635908431a6"/>
+				<reportElement positionType="FixRelativeToBottom" x="278" y="14" width="277" height="14" />
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="false"/>
 				</textElement>

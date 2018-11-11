@@ -30,6 +30,7 @@ public class SQLServerConnUtils {
 //            //e.printStackTrace();
 //        }
         return getSQLServerConnection_SQLJDBC("jdbc:sqlserver://localhost;databaseName=DuLieuCan", "com.microsoft.sqlserver.jdbc.SQLServerDriver", "sa", "a@123456");//a@123456
+//        return getSQLServerConnection_SQLJDBC("jdbc:sqlserver://149.28.138.92;databaseName=DuLieuCan", "com.microsoft.sqlserver.jdbc.SQLServerDriver", "sa", "a@123456");//a@123456
     }
 
     // Connect to SQLServer

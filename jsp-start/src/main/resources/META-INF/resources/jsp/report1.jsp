@@ -76,7 +76,7 @@
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: center;">
-                        <input type="submit" value="Xem báo cáo" style="width: 100px; " class="btn btn-default"/>
+                        <input type="submit" value="Xem báo cáo" style="width: 100px; text-align: center" class="btn btn-default"/>
                     </td>
                 </tr>
             </table>
