@@ -44,7 +44,7 @@ UNION ALL
 SELECT 'Ca 2' CA, 2 STT,
 	  COALESCE(MAX(GIATRI) - MIN(GIATRI), 0) LECH
   FROM DBO.DULIEU1 DL
-  where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate12}, 121) AND CONVERT(datetime,$P{p_endDate2}, 121)
+  where dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate2}, 121) AND CONVERT(datetime,$P{p_endDate2}, 121)
    AND upper(rtrim(DL.TENCAN)) =upper(rtrim($P{p_can}))
 GROUP BY TENCAN
   UNION ALL
