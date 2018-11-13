@@ -10,7 +10,8 @@ public class ConnectionUtils {
 
         // Using Oracle
         // You may be replaced by other Database.
-        return SQLServerConnUtils.getSQLServerConnection_SQLJDBC();
+        return SQLServerConnUtils.getSQLServerConnection_SQLJDBCAuthen();
+//        return SQLServerConnUtils.getSQLServerConnection_SQLJDBC();
     }
 
     //

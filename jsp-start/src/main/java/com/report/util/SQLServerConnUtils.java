@@ -57,4 +57,16 @@ public class SQLServerConnUtils {
         return null;
     }
 
+    public static Connection getSQLServerConnection_SQLJDBCAuthen() {
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=DuLieuCan;integratedSecurity=true;");
+            return conn;
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
 }
