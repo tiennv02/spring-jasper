@@ -26,8 +26,8 @@
 TENCAN,
 GIATRI_BD,
 GIATRI_CUOI,
-FORMAT(THOIGIAN_DAU, 'g', 'en-gb') THOIGIAN_DAU,
-FORMAT(THOIGIAN_KT, 'g', 'en-gb') THOIGIAN_KT,
+convert(varchar, THOIGIAN_DAU, 103) +' '+ convert(varchar, THOIGIAN_DAU, 8) as THOIGIAN_DAU,
+convert(varchar, THOIGIAN_KT, 103) +' '+ convert(varchar, THOIGIAN_KT, 8) as THOIGIAN_KT,
 GIATRI_BD - GIATRI_CUOI as LECH FROM (
 SELECT
       TENCAN,

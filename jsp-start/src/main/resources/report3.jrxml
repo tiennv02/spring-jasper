@@ -20,8 +20,8 @@ TENCAN,
 CA,
 GIATRI_BD,
 GIATRI_CUOI,
-FORMAT(THOIGIAN_DAU, 'g', 'en-gb') THOIGIAN_DAU,
-FORMAT(THOIGIAN_KT, 'g', 'en-gb') THOIGIAN_KT,
+convert(varchar, THOIGIAN_DAU, 103) +' '+ convert(varchar, THOIGIAN_DAU, 8) as THOIGIAN_DAU,
+convert(varchar, THOIGIAN_KT, 103) +' '+ convert(varchar, THOIGIAN_KT, 8) as THOIGIAN_KT,
  GIATRI_BD-GIATRI_CUOI  as LECH FROM (
 SELECT
       TENCAN,
@@ -35,7 +35,7 @@ SELECT
  upper(rtrim(DL.TENCAN)) =upper(rtrim($P{p_can}))
 and dl.thoigian BETWEEN CONVERT(datetime, $P{p_startDate}, 121) AND CONVERT(datetime,$P{p_endDate}, 121)
 ) DL
- ORDER BY GIATRI_BD asc;]]>
+ ORDER BY GIATRI_BD asc]]>
 	</queryString>
 	<field name="TENCAN" class="java.lang.String"/>
 	<field name="CA" class="java.lang.String"/>

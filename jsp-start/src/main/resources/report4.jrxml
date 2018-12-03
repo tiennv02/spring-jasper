@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
-<!-- 2018-11-12T01:43:44 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" >
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="ireport.zoom" value="1.4641000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -27,7 +25,7 @@ CASE STT
   ELSE ''
 END as THAN
  from (
-	select a.STT, b.TENCAN, b.MAX_GIATRI, b.MIN_GIATRI,  b.LECH
+	select a.STT, b.TENCAN, b.MAX_GIATRI, b.MIN_GIATRI, (MAX_GIATRI - MIN_GIATRI) as LECH
 	from
 		(select top 12 row_number() over (order by ID) as STT from DBO.DULIEU1) a
 		left join
@@ -36,12 +34,12 @@ END as THAN
 			  TENCAN,
 			  substring(TENCAN,7,9) as STT,
 			  MAX(GIATRI) MAX_GIATRI,
-			  MIN(GIATRI) MIN_GIATRI,
-			  (case when MAX(GIATRI) = 0 then 0 else MAX(GIATRI) - MIN(GIATRI) end) as LECH
+			  MIN(GIATRI) MIN_GIATRI
+
 			FROM
 			  DBO.DULIEU1 d
 			WHERE thoigian BETWEEN convert(datetime, $P{p_Date},121 ) AND convert(datetime, $P{p_endDate},121)
-			GROUP BY TENCAN
+			GROUP BY TENCAN,  substring(TENCAN,7,9)
 		)b on a.STT = b.STT
   ) a
 --where a.STT != '12'
@@ -59,42 +57,42 @@ ORDER BY CAST(STT as int)]]>
 	<title>
 		<band height="102" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="15" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="277" height="15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CÔNG TY THAN DƯƠNG HUY-TKV PHÒNG KCS-TIÊU THỤ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="278" height="15" />
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="278" height="15"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="false" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[CÔNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="277" height="12" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="277" height="12"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[PHÒNG KCS-TIÊU THỤ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="15" width="278" height="12" />
+				<reportElement positionType="FixRelativeToBottom" x="277" y="15" width="278" height="12"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="9" isBold="true" isUnderline="true"/>
 				</textElement>
 				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="43" width="555" height="19" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="43" width="555" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[BÁO CÁO KHỐI LƯỢNG CÁC PHÂN XƯỞNG]]></text>
 			</staticText>
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="62" width="555" height="20" />
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="62" width="555" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -112,7 +110,7 @@ ORDER BY CAST(STT as int)]]>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -126,7 +124,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TÊN CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="126" y="0" width="74" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="126" y="0" width="74" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -140,7 +138,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -154,7 +152,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -168,7 +166,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -182,7 +180,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TÊN PX]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -196,7 +194,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[KHỐI LƯỢNG THAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="37"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -214,7 +212,7 @@ ORDER BY CAST(STT as int)]]>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="96" height="20"/>
 				<box topPadding="1" leftPadding="5" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -228,7 +226,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="127" y="0" width="72" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="127" y="0" width="72" height="20"/>
 				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -242,7 +240,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" />
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="1" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -256,7 +254,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="275" y="0" width="103" height="20"/>
 				<box topPadding="1" leftPadding="5" bottomPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -270,7 +268,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="200" y="0" width="75" height="20"/>
 				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -284,7 +282,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MAX_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="451" y="0" width="104" height="20"/>
 				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -298,7 +296,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{LECH}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="378" y="0" width="73" height="20"/>
 				<box topPadding="1" bottomPadding="1" rightPadding="5">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -316,14 +314,14 @@ ORDER BY CAST(STT as int)]]>
 	<summary>
 		<band height="99" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="277" height="14" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="277" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="false"/>
 				</textElement>
 				<text><![CDATA[N.V PHÒNG KCS-TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="278" y="14" width="277" height="14" />
+				<reportElement positionType="FixRelativeToBottom" x="278" y="14" width="277" height="14"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10" isBold="true" isUnderline="false"/>
 				</textElement>

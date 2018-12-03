@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub1_report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20" >
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub1_report2" language="groovy" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="0" bottomMargin="20">
 	<property name="ireport.zoom" value="1.3310000000000008"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="139"/>
+	<property name="ireport.y" value="0"/>
 	<parameter name="p_startDate" class="java.lang.String"/>
 	<parameter name="p_endDate" class="java.lang.String"/>
 	<parameter name="p_ca" class="java.lang.String"/>
@@ -13,7 +13,7 @@
 CASE STT
   WHEN '1' THEN 'THAN 1'
   WHEN '2' THEN 'THAN 2'
-  WHEN '3' THEN N'Q.LẬT -100'
+  WHEN '3' THEN 'THAN 3'
   WHEN '4' THEN 'THAN 4'
   WHEN '5' THEN 'THAN 5'
   WHEN '6' THEN 'THAN 6'
@@ -21,12 +21,12 @@ CASE STT
   WHEN '8' THEN 'THAN 8'
   WHEN '9' THEN 'THAN 9'
   WHEN '10' THEN 'THAN 10'
-  WHEN '11' THEN 'CG+XLM'
-  WHEN '12' THEN ''
+  WHEN '11' THEN N'ĐƠN VỊ ĐÀO LÒ'
+  WHEN '12' THEN 'KHO +38'
   ELSE ''
 END as THAN
  from (
-	select cast(a.STT as varchar) STT, b.TENCAN, b.MAX_GIATRI, b.MIN_GIATRI,  b.LECH
+	select a.STT, b.TENCAN, b.MAX_GIATRI, b.MIN_GIATRI, (MAX_GIATRI - MIN_GIATRI) as LECH
 	from
 		(select top 12 row_number() over (order by ID) as STT from DBO.DULIEU1) a
 		left join
@@ -35,12 +35,12 @@ END as THAN
 			  TENCAN,
 			  substring(TENCAN,7,9) as STT,
 			  MAX(GIATRI) MAX_GIATRI,
-			  MIN(GIATRI) MIN_GIATRI,
-			  (case when MAX(GIATRI) = 0 then 0 else MAX(GIATRI) - MIN(GIATRI) end) as LECH
+			  MIN(GIATRI) MIN_GIATRI
+
 			FROM
 			  DBO.DULIEU1 d
 			WHERE thoigian BETWEEN convert(datetime, $P{p_Date},121 ) AND convert(datetime, $P{p_endDate},121)
-			GROUP BY TENCAN
+			GROUP BY TENCAN,  substring(TENCAN,7,9)
 		)b on a.STT = b.STT
   ) a
 --where a.STT != '12'
@@ -102,8 +102,8 @@ ORDER BY CAST(STT as int)]]>
 	</background>
 	<title>
 		<band height="58" splitType="Stretch">
-			<textField>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="24" />
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="24"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.0" lineStyle="Solid"/>
@@ -117,7 +117,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CA "+$P{p_ca}+" TỪ " + (Integer.parseInt($P{p_ca})*8+$P{p_gio}-1>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-25):(Integer.parseInt($P{p_ca})*8+$P{p_gio}-1)).toString()+"H30 - " +(Integer.parseInt($P{p_ca})*8+$P{p_gio}>23?(Integer.parseInt($P{p_ca})*8+$P{p_gio}-24):(Integer.parseInt($P{p_ca})*8+$P{p_gio})).toString()+"H30 "+" Ngày "+$P{p_Date}.substring(8,10)+" Tháng "+$P{p_Date}.substring(5,7)]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="19" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="11" isBold="true" isUnderline="false"/>
 				</textElement>
@@ -128,7 +128,7 @@ ORDER BY CAST(STT as int)]]>
 	<columnHeader>
 		<band height="37" splitType="Stretch">
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -142,7 +142,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TÊN CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -156,7 +156,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[CHỈ SỐ ĐẦU]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="30" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -170,7 +170,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TT]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -184,7 +184,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[CHỈ SỐ CUỐI]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -198,7 +198,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[TÊN PX]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -212,7 +212,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[KHỐI LƯỢNG THAN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -226,7 +226,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -240,7 +240,7 @@ ORDER BY CAST(STT as int)]]>
 				<text><![CDATA[L. KÊ KHỐI LƯỢNG QUA CÂN]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="37" />
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="37"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -258,7 +258,7 @@ ORDER BY CAST(STT as int)]]>
 	<detail>
 		<band height="220" splitType="Stretch">
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -274,7 +274,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -290,7 +290,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -306,7 +306,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -322,7 +322,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -338,7 +338,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -354,7 +354,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable1}-$V{variable8}-$V{variable7})==0?"-":($V{variable1}-$V{variable8}-$V{variable7})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="0" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -370,7 +370,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -386,7 +386,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("1")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -402,7 +402,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable1}-$V{variable8}-$V{variable7})==0?"-":($V{variable1}-$V{variable8}-$V{variable7})]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="20" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="20" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -418,7 +418,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable2}==0?"-":$V{variable2}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="20" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="20" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -434,7 +434,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="20" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="20" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -450,7 +450,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="20" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="20" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -466,7 +466,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="20" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="20" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -482,7 +482,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="20" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="20" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -498,7 +498,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="20" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="20" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -514,7 +514,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable2}==0?"-":$V{variable2}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="20" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="20" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -530,7 +530,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="20" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="20" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("2")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -546,7 +546,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="40" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="40" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -562,7 +562,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable3}==0?"-":$V{variable3}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="40" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="40" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -578,7 +578,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="40" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="40" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -594,7 +594,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="40" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="40" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -610,7 +610,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="40" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="40" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -626,7 +626,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="40" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="40" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -642,7 +642,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="40" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="40" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -658,7 +658,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="40" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="40" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -674,7 +674,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="40" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="40" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("3")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -690,7 +690,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable3}==0?"-":$V{variable3}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="60" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="60" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -706,7 +706,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="60" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="60" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -722,7 +722,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="60" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="60" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -738,7 +738,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable5}==0?"-":$V{variable5}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="60" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="60" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -754,7 +754,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="60" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="60" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -770,7 +770,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="60" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="60" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -786,7 +786,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="60" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="60" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -802,7 +802,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable5}==0?"-":$V{variable5}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="60" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="60" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -818,7 +818,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="60" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="60" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("4")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -834,7 +834,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="100" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="100" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -850,7 +850,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="140" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="140" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -866,7 +866,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="140" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="140" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -882,7 +882,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="80" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="80" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -898,7 +898,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="80" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="80" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -914,7 +914,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="120" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="120" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -930,7 +930,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="120" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="120" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -946,7 +946,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="120" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="120" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -962,7 +962,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="140" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="140" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -978,7 +978,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="140" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="140" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -994,7 +994,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="80" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="80" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1010,7 +1010,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="100" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="100" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1026,7 +1026,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="140" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="140" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1042,7 +1042,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="140" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="140" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1058,7 +1058,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable8}-$V{variable6}-$V{variable2})==0?"-":($V{variable8}-$V{variable6}-$V{variable2})]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="120" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="120" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1074,7 +1074,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="100" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="100" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1090,7 +1090,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable6}-$V{variable5})==0?"-":($V{variable6}-$V{variable5})]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="100" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="100" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1106,7 +1106,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable6}-$V{variable5})==0?"-":($V{variable6}-$V{variable5})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="120" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="120" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1122,7 +1122,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="140" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="140" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1138,7 +1138,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable8}-$V{variable6}-$V{variable2}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="120" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="120" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1154,7 +1154,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable7}-$V{variable10})==0?"-":($V{variable7}-$V{variable10})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="140" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="140" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1170,7 +1170,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="80" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="80" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1186,7 +1186,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="140" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="140" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("8")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1202,7 +1202,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="120" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="120" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1218,7 +1218,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="100" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="100" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1234,7 +1234,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="100" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="100" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1250,7 +1250,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="80" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="80" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1266,7 +1266,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable4}==0?"-":$V{variable4}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="120" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="120" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1282,7 +1282,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable7}-$V{variable10})==0?"-":($V{variable7}-$V{variable10})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="120" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="120" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("7")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1298,7 +1298,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="80" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="80" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1314,7 +1314,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="100" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="100" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1330,7 +1330,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="80" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="80" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1346,7 +1346,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="100" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="100" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1362,7 +1362,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="100" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="100" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("6")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1378,7 +1378,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="80" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="80" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1394,7 +1394,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable4}==0?"-":$V{variable4}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="80" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="80" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("5")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1410,7 +1410,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="180" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="180" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1426,7 +1426,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="160" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="160" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1442,7 +1442,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="160" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="160" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1458,7 +1458,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="200" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="200" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1474,7 +1474,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="200" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="200" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1490,7 +1490,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="200" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="200" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1506,7 +1506,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="160" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="160" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1522,7 +1522,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="180" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="180" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1538,7 +1538,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="200" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="200" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1554,7 +1554,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="180" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="180" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1570,7 +1570,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable10}==0?"-":$V{variable10}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="180" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="180" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1586,7 +1586,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable10}==0?"-":$V{variable10}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="200" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="200" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1602,7 +1602,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="200" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="200" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1618,7 +1618,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable11}==0?"-":$V{variable11}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="160" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" >
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="160" width="30" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1634,7 +1634,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="200" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="200" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1650,7 +1650,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="180" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="180" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1666,7 +1666,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="180" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="180" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1682,7 +1682,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="160" width="62" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="493" y="160" width="62" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1698,7 +1698,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable9}-$V{variable1}-$V{variable4})==0?"-":($V{variable9}-$V{variable1}-$V{variable4})]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="200" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="200" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1714,7 +1714,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable11}==0?"-":$V{variable11}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="277" y="200" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="277" y="200" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("11")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1730,7 +1730,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="160" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="160" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1746,7 +1746,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="180" width="60" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="180" width="60" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1762,7 +1762,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="160" width="71" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="206" y="160" width="71" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1778,7 +1778,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{THAN}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="180" width="58" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="30" y="180" width="58" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
@@ -1794,7 +1794,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ "+$F{STT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="180" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="180" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("10")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1810,7 +1810,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="160" width="70" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="423" y="160" width="70" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1826,7 +1826,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[($V{variable9}-$V{variable1}-$V{variable4})==0?"-":($V{variable9}-$V{variable1}-$V{variable4})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="160" width="73" height="20" isRemoveLineWhenBlank="true" >
+				<reportElement positionType="FixRelativeToBottom" x="350" y="160" width="73" height="20" isRemoveLineWhenBlank="true">
 					<printWhenExpression><![CDATA[$F{STT}.equals("9")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
@@ -1846,7 +1846,7 @@ ORDER BY CAST(STT as int)]]>
 	<summary>
 		<band height="20">
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="206" y="0" width="71" height="20"/>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -1860,7 +1860,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN TỔNG"]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="493" y="0" width="62" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -1874,7 +1874,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable1}-$V{variable8}-$V{variable7}+$V{variable2}+$V{variable3}+$V{variable5}+$V{variable4}+$V{variable6}-$V{variable5}+$V{variable7}-$V{variable10}+$V{variable8}-$V{variable6}-$V{variable2}+$V{variable9}-$V{variable1}-$V{variable4}+$V{variable10}+$V{variable11}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="277" y="0" width="73" height="20" forecolor="#000000" backcolor="#FFFFFF" >
+				<reportElement positionType="FixRelativeToBottom" mode="Transparent" x="277" y="0" width="73" height="20" forecolor="#000000" backcolor="#FFFFFF">
 					<printWhenExpression><![CDATA[$F{STT}.equals("12")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1891,7 +1891,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{LECH}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report" pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="423" y="0" width="70" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -1905,7 +1905,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$V{variable1}-$V{variable8}-$V{variable7}+$V{variable2}+$V{variable3}+$V{variable5}+$V{variable4}+$V{variable6}-$V{variable5}+$V{variable7}-$V{variable10}+$V{variable8}-$V{variable6}-$V{variable2}+$V{variable9}-$V{variable1}-$V{variable4}+$V{variable10}+$V{variable11}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20" >
+				<reportElement positionType="FixRelativeToBottom" x="88" y="0" width="58" height="20">
 					<printWhenExpression><![CDATA[$F{STT}.equals("12")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1921,7 +1921,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MIN_GIATRI}==null?"-":$F{MIN_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="30" y="0" width="58" height="20"/>
 				<box topPadding="1" leftPadding="3" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -1935,7 +1935,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA["CÂN SỐ 12"]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true" />
+				<reportElement positionType="FixRelativeToBottom" stretchType="RelativeToBandHeight" x="0" y="0" width="30" height="20" isPrintWhenDetailOverflows="true"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
@@ -1949,7 +1949,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[13]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20" >
+				<reportElement positionType="FixRelativeToBottom" x="146" y="0" width="60" height="20">
 					<printWhenExpression><![CDATA[$F{STT}.equals("12")]]></printWhenExpression>
 				</reportElement>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="1">
@@ -1965,7 +1965,7 @@ ORDER BY CAST(STT as int)]]>
 				<textFieldExpression><![CDATA[$F{MAX_GIATRI}==null?"-":$F{MAX_GIATRI}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0" isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20" />
+				<reportElement positionType="FixRelativeToBottom" x="350" y="0" width="73" height="20"/>
 				<box topPadding="1" leftPadding="1" bottomPadding="1" rightPadding="3">
 					<pen lineStyle="Solid"/>
 					<topPen lineWidth="0.5" lineStyle="Solid"/>
