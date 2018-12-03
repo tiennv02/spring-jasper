@@ -39,7 +39,7 @@ END as THAN
 
 			FROM
 			  DBO.DULIEU1 d
-			WHERE thoigian BETWEEN convert(datetime, $P{p_Date},121 ) AND convert(datetime, $P{p_endDate},121)
+			WHERE thoigian BETWEEN convert(datetime, $P{p_startDate},121 ) AND convert(datetime, $P{p_endDate},121)
 			GROUP BY TENCAN,  substring(TENCAN,7,9)
 		)b on a.STT = b.STT
   ) a
