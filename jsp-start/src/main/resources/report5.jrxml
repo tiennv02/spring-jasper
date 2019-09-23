@@ -32,7 +32,7 @@
 	</parameter>
 	<queryString>
 		<![CDATA[ select 'Ca ' + cast(STT1 as varchar(10)) as CA, LECH from  (
-(select top 3 row_number() over (order by ID) as STT1 from DBO.DULIEU1) a
+(select top 3 row_number() over (order by substring(TENCAN,7,9)) as STT1 from DBO.DULIEU1) a
 left join (
 		SELECT 'Ca 1' CA, 1 STT,
 	   COALESCE(MAX(GIATRI) - MIN(GIATRI), 0) LECH

@@ -11,7 +11,7 @@
 	<parameter name="p_ca" class="java.lang.String"/>
 	<parameter name="p_Date" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[select top 12 row_number() over (order by ID) as id from DBO.DULIEU1]]>
+		<![CDATA[select top 12 row_number() over (order by substring(TENCAN,7,9)) as id from DBO.DULIEU1]]>
 	</queryString>
 	<field name="id" class="java.lang.Long"/>
 	<background>

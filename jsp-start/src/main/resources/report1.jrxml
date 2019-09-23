@@ -30,7 +30,7 @@ END as THAN
  from (
  select a.STT,  'Can So ' + CAST(a.STT as varchar(10)) as TENCAN, b.MAX_GIATRI, b.MIN_GIATRI,  b.LECH
 	from
-		(select top 12 row_number() over (order by ID) as STT from DBO.DULIEU1) a
+		(select top 12 row_number() over (order by substring(TENCAN,7,9)) as STT from DBO.DULIEU1) a
 		left join
 		(
 SELECT

@@ -61,7 +61,7 @@ public class SQLServerConnUtils {
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
-            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=DuLieuCan;integratedSecurity=true;");
+            Connection conn = DriverManager.getConnection("jdbc:sqlserver://localhost;databaseName=ConcreteMixingData;integratedSecurity=true;");
             return conn;
         } catch (Exception ex) {
             ex.printStackTrace();
